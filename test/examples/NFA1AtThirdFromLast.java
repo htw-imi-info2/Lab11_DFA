@@ -26,17 +26,22 @@ public class NFA1AtThirdFromLast extends NFATester {
 		fa.addAcceptState(4);
 	}
 
-	@Parameters
-	public static Collection<Object[]> data() {
-		return Arrays.asList(new Object[][] { { "0", false }, { "01", false },
-				{ "0100", true }, { "111111", true }, { "01001", false },
-				{ "0110", true }, { "010101001010100111", true },
-				{ "111", true }, { "010101001010100011", false },
-				{ "", false }, { "10", false }, { "101", true } });
+	public static Iterable<String> wordsInLanguage() {
+		return Arrays.asList(new String[] { "0100", "111111", "111", "0110",
+				"010101001010100111", "101" });
+	}
+
+	public static Iterable<String> wordsNotInLanguage() {
+		return Arrays.asList(new String[] { "", "0", "01", "10", "01001",
+				"010101001010100011" });
 	}
 
 	public NFA1AtThirdFromLast(String string, boolean inLanguage) {
 		super(string, inLanguage);
+	}
+	@Parameters(name = "{index}: {0} (in language: {1})")
+	public static Collection<Object[]> data() {
+		return wordLists(wordsInLanguage(), wordsNotInLanguage());
 	}
 
 }
