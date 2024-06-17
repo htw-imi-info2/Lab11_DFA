@@ -1,4 +1,4 @@
-package examples;
+package nfa.examples;
 
 import nfa.NFA;
 import org.junit.jupiter.params.ParameterizedTest;

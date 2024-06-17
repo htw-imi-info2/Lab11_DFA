@@ -25,13 +25,14 @@ public class DFATestParameterized {
 
 
     public static Collection<Object[]> testCases() {
+
         DFAWithExamples dfa_ex = new UnevenNumberOfAs();
-        DFA dfa = dfa_ex.getFA();
+
         List<Object[]> testCases = new ArrayList<>();
         for (String w : dfa_ex.notInLanguage())
-            testCases.add( new Object[] {dfa, false, w });
+            testCases.add( new Object[] {dfa_ex.getFA(), false, w });
         for (String w : dfa_ex.inLanguage())
-            testCases.add(new Object[] {dfa, true, w });
+            testCases.add(new Object[] {dfa_ex.getFA(), true, w });
         return testCases;
     }
 
