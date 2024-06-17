@@ -1,4 +1,4 @@
-package examples;
+package nfa.examples;
 
 import java.util.Arrays;
 import java.util.Collection;
