@@ -25,7 +25,7 @@ public class FARule {
 	@Override
 	public String toString() {
 		return "" + state + " --"
-				+ ((character == NFA.EPSILON) ? "\u03B5" : character) + "-->"
+				+ ((character == NFA.EPSILON) ? "ε" : character) + "-->"
 				+ nextState;
 
 	}

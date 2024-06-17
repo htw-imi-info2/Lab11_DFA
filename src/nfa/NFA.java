@@ -20,12 +20,18 @@ public class NFA {
 	Set<FAState> currentStates;
 	NFARulebook rulebook;
 	public final static char EPSILON = 7; // using BEL as epsilon
-
-	public NFA(Object startStateIdentifier) {
+	String name;
+	public NFA(Object startStateIdentifier,String name){
+		this.name = name;
 		this.rulebook = new NFARulebook();
 		this.currentStates = new HashSet<>();
 		this.currentStates.add(rulebook.getState(startStateIdentifier));
 	}
+	public NFA(Object startStateIdentifier) {
+		this(startStateIdentifier, "NFA");
+	}
+	@Override
+	public String toString() { return name; }
 
 	public void readString(String string) {
 		char[] characters = string.toCharArray();

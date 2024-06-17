@@ -1,51 +1,37 @@
 package examples;
 
-import static org.junit.Assert.assertEquals;
+import nfa.NFA;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
-import nfa.NFA;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
 
-public abstract class NFATester {
-	protected NFA fa;
-	String string;
-	boolean inLanguage;
+public  class NFATester {
 
-	public NFATester(String string, boolean inLanguage) {
-		super();
-		this.string = string;
-		this.inLanguage = inLanguage;
-	}
-
-	@Test
-	public void test() {
-		fa.readString(string);
-		assertEquals(string + " should " + (inLanguage ? "" : "not ")
-				+ "be accepted: ", inLanguage, fa.accepts());
-	}
-
-	/**
-	 * this is a utility method that can be used from the method annotated with @Parameters
-	 * to construct the test cases out of two Lists of Strings:
-	 * 
-	 * @param wordsInLanguage
-	 * @param wordsNotInLanguage
-	 * @return
-	 */
-	public static Collection<Object[]> wordLists(
-			Iterable<String> wordsInLanguage,
-			Iterable<String> wordsNotInLanguage) {
-		Collection<Object[]> testCases = new ArrayList<Object[]>();
-		for (String word : wordsInLanguage) {
-			testCases.add(new Object[] { word, true });
-		}
-		for (String word : wordsNotInLanguage) {
-			testCases.add(new Object[] { word, false });
+	public static List<Object[]> testCases() {
+		NFAWithExamples[] tc = new NFAWithExamples[]{  new NFAWithEpsilon(), new NFA1AtThirdFromLast()};
+		List<Object[]> testCases = new ArrayList<>();
+		for (NFAWithExamples nfa : tc) {
+			for(Object[] example : nfa.examples()) {
+				testCases.add(new Object[]{nfa.getFA(), example[0], example[1]});
+			}
 		}
 		return testCases;
+
+
 	}
+	@ParameterizedTest
+	@MethodSource("testCases")
+	public void test(NFA fa, String string, boolean inLanguage) {
+		fa.readString(string);
+		assertEquals(inLanguage, fa.accepts(), string + " should " + (inLanguage ? "" : "not ")
+				+ "be accepted: ");
+	}
+
+
 
 }

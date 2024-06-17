@@ -5,17 +5,11 @@ import java.util.Collection;
 
 import nfa.NFA;
 
-import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+public class NFA1AtThirdFromLast extends NFAWithExamples {
 
-@RunWith(Parameterized.class)
-public class NFA1AtThirdFromLast extends NFATester {
-	@Before
-	public void setUp() throws Exception {
-
-		fa = new NFA(1);
+	@Override
+	public NFA getFA() {
+		NFA fa = new NFA(1, "NFA1AtThirdFromLast");
 		fa.addRule(1, '0', 1);
 		fa.addRule(1, '1', 1);
 		fa.addRule(1, '1', 2); // 0 rd from last
@@ -24,6 +18,7 @@ public class NFA1AtThirdFromLast extends NFATester {
 		fa.addRule(3, '0', 4); // last
 		fa.addRule(3, '1', 4); // last
 		fa.addAcceptState(4);
+		return fa;
 	}
 
 	public static Iterable<String> wordsInLanguage() {
@@ -36,11 +31,8 @@ public class NFA1AtThirdFromLast extends NFATester {
 				"010101001010100011" });
 	}
 
-	public NFA1AtThirdFromLast(String string, boolean inLanguage) {
-		super(string, inLanguage);
-	}
-	@Parameters(name = "{index}: {0} (in language: {1})")
-	public static Collection<Object[]> data() {
+	@Override
+	public Collection<Object[]> examples() {
 		return wordLists(wordsInLanguage(), wordsNotInLanguage());
 	}
 
