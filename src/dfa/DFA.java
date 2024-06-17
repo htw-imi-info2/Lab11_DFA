@@ -10,11 +10,14 @@ public class DFA {
 
 
     String startState;
-    Set<String> finalStates;
+    Set<String> finalStates = new HashSet<>();
     Set<String> alphabet = new HashSet<>();
     Set<String> states = new HashSet<>();
     Map<StateInputPair, String> transitions = new HashMap<>();
     String state;
+    String name;
+
+    public DFA(String name){this.name=name;}
 
     class StateInputPair {
         String state;
@@ -105,5 +108,7 @@ public class DFA {
     public Set<String> getStates() {
         return states;
     }
+    @Override
+    public String toString(){return name;}
 
 }

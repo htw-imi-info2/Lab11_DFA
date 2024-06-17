@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import nfa.NFA;
 
-public class NFA1AtThirdFromLast extends NFAWithExamples {
+public class NFA1AtThirdFromLast implements NFAWithExamples {
 
 	@Override
 	public NFA getFA() {
@@ -21,19 +21,16 @@ public class NFA1AtThirdFromLast extends NFAWithExamples {
 		return fa;
 	}
 
-	public static Iterable<String> wordsInLanguage() {
-		return Arrays.asList(new String[] { "0100", "111111", "111", "0110",
-				"010101001010100111", "101" });
-	}
-
-	public static Iterable<String> wordsNotInLanguage() {
-		return Arrays.asList(new String[] { "", "0", "01", "10", "01001",
-				"010101001010100011" });
+	@Override
+	public String[] inLanguage() {
+		return new String[] { "0100", "111111", "111", "0110",
+				"010101001010100111", "101" };
 	}
 
 	@Override
-	public Collection<Object[]> examples() {
-		return wordLists(wordsInLanguage(), wordsNotInLanguage());
+	public String[] notInLanguage() {
+		return new String[] { "", "0", "01", "10", "01001",
+				"010101001010100011" };
 	}
 
 }

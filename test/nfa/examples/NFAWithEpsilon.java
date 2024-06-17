@@ -6,7 +6,7 @@ import java.util.Collection;
 import nfa.NFA;
 
 
-public class NFAWithEpsilon extends NFAWithExamples {
+public class NFAWithEpsilon implements NFAWithExamples {
 
 	@Override
 	public NFA getFA() {
@@ -23,13 +23,15 @@ public class NFAWithEpsilon extends NFAWithExamples {
 	}
 
 	@Override
-	public Collection<Object[]> examples() {
-		return Arrays.asList(new Object[][] { { "", false }, { "a", true },
-				{ "aa", true }, { "aaa", true }, { "b", true }, { "bb", true },
-				{ "bbb", true }, { "abb", false }, { "baaaa", false },
-				{ "aaaaab", false }, { "abababa", false }, { "101", false } });
+	public String[] inLanguage() {
+		return new String[]{"a","aa", "aaa", "b",  "bb", "bbb"};
 	}
 
+	@Override
+	public String[] notInLanguage() {
+		return new  String[]{
+				"abb","baaaa", "aaaaab","abababa", "101"
+		};
+	}
 
-	
 }

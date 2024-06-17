@@ -8,7 +8,7 @@ public class SimpleDFATest {
 
     @Test
     public void test() {
-        DFA automaton = new DFA();
+        DFA automaton = new DFA("Mistery");
         automaton.addRule("q0", "0", "q1");
         automaton.addRule("q0", "1", "F");
         automaton.addRule("q1", "0", "q1");

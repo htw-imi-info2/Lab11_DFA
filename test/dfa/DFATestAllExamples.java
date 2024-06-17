@@ -1,8 +1,8 @@
 package dfa;
 
 import dfa.examples.DFAWithExamples;
+import dfa.examples.MisteryAutomaton;
 import dfa.examples.UnevenNumberOfAs;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -12,27 +12,29 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DFATestParameterized {
+public class DFATestAllExamples {
 
     @ParameterizedTest
     @MethodSource("testCases")
     public void testAccept(DFA dfa, boolean inLanguage, String word) {
-
         assertEquals( inLanguage, dfa.readWord(word));
     }
 
 
-
-
     public static Collection<Object[]> testCases() {
 
-        DFAWithExamples dfa_ex = new UnevenNumberOfAs();
+        DFAWithExamples[] automata = {
+                new UnevenNumberOfAs(),
+                new MisteryAutomaton()
+        };
 
         List<Object[]> testCases = new ArrayList<>();
-        for (String w : dfa_ex.notInLanguage())
-            testCases.add( new Object[] {dfa_ex.getFA(), false, w });
-        for (String w : dfa_ex.inLanguage())
-            testCases.add(new Object[] {dfa_ex.getFA(), true, w });
+        for (DFAWithExamples dfa : automata) {
+            for (String w : dfa.notInLanguage())
+                testCases.add(new Object[]{dfa.getFA(), false, w});
+            for (String w : dfa.inLanguage())
+                testCases.add(new Object[]{dfa.getFA(), true, w});
+        }
         return testCases;
     }
 
